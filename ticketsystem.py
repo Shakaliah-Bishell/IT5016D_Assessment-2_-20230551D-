@@ -61,8 +61,10 @@ def ticket_stats():
     print("tickets resolved", resolved)
     print("tickets created", Ticket.counter)
     
-def edit_ticket()
+    def edit_ticket()
     whatticket = input("please enter the number of the ticket you'd like to edit")
+    if "2001"
+    else 
     editingattribute = input("what would you like to edit") 
                
     
