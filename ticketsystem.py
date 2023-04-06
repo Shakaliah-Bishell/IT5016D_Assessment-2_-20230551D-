@@ -1,24 +1,16 @@
-ticket_list = []
-class Ticket:
-    counter = 1
-
-    def __init__(self, staffID, creatorName, contactEmail, description):
-
-        self.staffID = staffID
-
-        self.creatorName = creatorName 
-
-        self.contactEmail = contactEmail
-
-        self.description = description
-
-        self.listingNum = Ticket.counter + 2000
+    self.listingNum = Ticket.counter + 2000
 
         Ticket.counter += 1
 
         self.response = "Not Yet Provided"
 
-        self.ticketStatus = "Active"
+        self.ticketStatus = ticketStatus
+        
+        if self.ticketStatus == "Open":
+            solve += 1
+
+        elif self.ticketStatus == "Closed":
+            resolved += 1 
 
     def ticketprint(self):
         global ticket_list
@@ -35,24 +27,63 @@ class Ticket:
         if "Password Change" in (self.description):
             self.response = "New Password Generated: JoJoh"
             self.ticketStatus = "Closed"
-            print("Response:New password generated: JOJoh")
-            print("Status:Closed")
 
-ticket1 = Ticket("INNAM","Inna","inna@whitecliffe.co.nz","My monitor stopped working.")
+ticket1 = Ticket("INNAM","Inna","inna@whitecliffe.co.nz","My monitor stopped working.", "Closed")
 ticket_list.append(ticket1)
 Ticket.ticketprint(ticket1)
 
-ticket2 = Ticket("MARIAH","Maria","maria@whitecliffe.co.nz","Request for a videocamera to conduct webinars.")
+ticket2 = Ticket("MARIAH","Maria","maria@whitecliffe.co.nz","Request for a videocamera to conduct webinars.", "Open")
 ticket_list.append(ticket2)
+print(ticket2.response)
 Ticket.ticketprint(ticket2)
 
-ticket3 = Ticket("JOHNS","John","john@whitecliffe.co.nz", "Password Change")
-ticket_list.append(ticket3)
+ticket3 = Ticket("JOHNS","John","john@whitecliffe.co.nz", "Password Change", "Closed")
 Ticket.passwordchange(ticket3)
+ticket_list.append(ticket3)
 Ticket.ticketprint(ticket3)
 
+#creating ticket
+
+def create_new_ticket(): 
+    userID = input("Please enter your Staff ID: ")
+    name = input("Please enter your Name: ")
+    email = input("Please enter your Email: ")
+    description = input("Please Describe your Issue: ")
+    ticket4 = Ticket(userID, name, email, description,"Open")
+    ticket_list.append(ticket4)
+    Ticket.ticketprint(ticket4)
 
 
-s = "JOHNS"
-first_two = s[:2]
-print(first_two)
+def ticket_stats():
+    global solve
+    global resolved
+    print("tickets to solve", solve)
+    print("tickets resolved", resolved)
+    print("tickets created", Ticket.counter)
+    
+
+
+
+
+
+
+
+
+
+
+#s = "JOHNS"
+#first_two = s[:2]
+#print(first_two)
+
+#b = "John"
+#first_three = b [:3]
+#print(first_three) 
+
+#txt = "JOHNS"
+#print(txt.rsplit('H',))
+
+#txt2 = "John"
+#print(txt2.rsplit('n'))
+
+#join = b.join(s)
+#print(join)
