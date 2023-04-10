@@ -1,15 +1,16 @@
 ticket_list = []
+used_ID = []
 solve = 0
 resolved = 0
 
 class Ticket:
-    counter = 0
+    counter = 1
 
     
     def __init__(self, staffID, creatorName, contactEmail, description, ticketStatus):
         global solve
         global resolved
-
+        global used_ID
         self.staffID = staffID
 
         self.creatorName = creatorName 
@@ -30,7 +31,24 @@ class Ticket:
             solve += 1
 
         elif self.ticketStatus == "Closed":
-            resolved += 1 
+            resolved += 1
+
+        used_ID.append(self.listingNum)
+
+    def password_change(self):
+        global solve
+        global resolved
+        if "Password Change" in self.description:
+            changedpwp1 = self.staffID[0:2]
+            changedpwp2 = self.creatorName[0:3]
+            changedpw = changedpwp1 + changedpwp2
+            self.ticketStatus = "Closed"
+            resolved += 1
+            solve -= 1
+            self.response = ("New Password is:", changedpw)
+            print("New password in response")
+        else:
+            pass
 
     def ticketprint(self):
         global ticket_list
@@ -43,28 +61,32 @@ class Ticket:
         print("Response:",self.response)
         print("Status:",self.ticketStatus) 
 
-    def passwordchange(self):  
-        if "Password Change" in (self.description):
-            self.response = "New Password Generated: JoJoh"
-            self.ticketStatus = "Closed"
-
 ticket1 = Ticket("INNAM","Inna","inna@whitecliffe.co.nz","My monitor stopped working.", "Closed")
 ticket_list.append(ticket1)
-Ticket.ticketprint(ticket1)
+
 
 ticket2 = Ticket("MARIAH","Maria","maria@whitecliffe.co.nz","Request for a videocamera to conduct webinars.", "Open")
 ticket_list.append(ticket2)
-print(ticket2.response)
-Ticket.ticketprint(ticket2)
 
-ticket3 = Ticket("JOHNS","John","john@whitecliffe.co.nz", "Password Change", "Closed")
-Ticket.passwordchange(ticket3)
+
+ticket3 = Ticket("JOHNS","John","john@whitecliffe.co.nz", "Password Change", "Open")
 ticket_list.append(ticket3)
-Ticket.ticketprint(ticket3)
+Ticket.password_change(ticket3)
+
+def view_tickets():
+    print("---------------")
+    for i in ticket_list:
+        Ticket.ticketprint(i)
+    main()
+
+
+#for i in used_ID:
+    #print(i)
 
 #creating ticket
 
-def create_new_ticket(): 
+def create_new_ticket():
+    print("---------------")
     userID = input("Please enter your Staff ID: ")
     name = input("Please enter your Name: ")
     email = input("Please enter your Email: ")
@@ -72,40 +94,49 @@ def create_new_ticket():
     ticket4 = Ticket(userID, name, email, description,"Open")
     ticket_list.append(ticket4)
     Ticket.ticketprint(ticket4)
+    Ticket.password_change(ticket4)
+    main()
 
 
 def ticket_stats():
     global solve
     global resolved
+    ticket_count = Ticket.counter - 1
+    print("---------------")
     print("tickets to solve", solve)
     print("tickets resolved", resolved)
-    print("tickets created", Ticket.counter)
-    
+    print("tickets created", ticket_count)
 
-    
-
-
-
-
-
-
-
-
-
-
-#s = "JOHNS"
-#first_two = s[:2]
-#print(first_two)
-
-#b = "John"
-#first_three = b [:3]
-#print(first_three) 
-
-#txt = "JOHNS"
-#print(txt.rsplit('H',))
-
-#txt2 = "John"
-#print(txt2.rsplit('n'))
-
-#join = b.join(s)
-#print(join)
+def edit_ticket():
+    global solve
+    global resolved
+    global ticket_list
+    print("---------------")
+    userinput = int (input("Enter Ticket Number")) 
+    tid = userinput - 2001
+    Ticket.ticketprint(ticket_list[tid])
+    editing = input("would you like to (O)pen or (C)locse the ticket?") 
+    if editing == "O":
+        ticket_list[tid].ticketStatus = "Reopend"
+        solve +=1
+        resolved -=1 
+    elif editing == "C":
+        ticket_list[tid].ticketStatus = "Closed"
+        solve -=1
+        resolved +=1 
+        user_response = input("Please enter a response")  
+        ticket_list[tid].response = user_response
+    Ticket.ticketprint(ticket_list[tid])
+    main()
+def main():
+    ticket_stats()
+    print("---------------")
+    main_input = input("Would you like to (V)iew Tickets, (E)dit Tickets or (M)ake a new Ticket?")
+    if main_input == "V":
+        view_tickets()
+    elif main_input == "M":
+        create_new_ticket()
+    elif main_input == "E":
+        edit_ticket() 
+        
+main()       
