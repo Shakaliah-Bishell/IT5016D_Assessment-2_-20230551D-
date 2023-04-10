@@ -1,18 +1,24 @@
- ticket_list = []
- class Ticket:
-     counter = 1
+ticket_list = []
+solve = 0
+resolved = 0
 
-     def __init__(self, staffID, creatorName, contactEmail, description):
+class Ticket:
+    counter = 0
 
-         self.staffID = staffID
+    
+    def __init__(self, staffID, creatorName, contactEmail, description, ticketStatus):
+        global solve
+        global resolved
 
-         self.creatorName = creatorName 
+        self.staffID = staffID
 
-         self.contactEmail = contactEmail
+        self.creatorName = creatorName 
 
-         self.description = description
+        self.contactEmail = contactEmail
 
-    self.listingNum = Ticket.counter + 2000
+        self.description = description
+
+        self.listingNum = Ticket.counter + 2000
 
         Ticket.counter += 1
 
@@ -67,7 +73,7 @@ def create_new_ticket():
     ticket_list.append(ticket4)
     Ticket.ticketprint(ticket4)
 
-#ticket statistics 
+
 def ticket_stats():
     global solve
     global resolved
@@ -75,10 +81,7 @@ def ticket_stats():
     print("tickets resolved", resolved)
     print("tickets created", Ticket.counter)
     
-def edit_ticket()
-    whatticket = input("please enter the number of the ticket you'd like to edit")
-    editingattribute = input("what would you like to edit") 
-               
+
     
 
 
