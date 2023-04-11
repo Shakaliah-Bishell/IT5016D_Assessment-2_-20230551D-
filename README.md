@@ -42,3 +42,9 @@ once it has gained your input the system will then ask you to "Please enter a re
 after all this info is collected the system will then print the ticket with your newly edited info.
 
 the ticket stats will change either increasing or decresing the ammount of ticktets resolved or tickets to solve depending on wether you have decided to open or close the ticket. 
+
+If you would like to create a ticket with a password change press "E" and enter on the navigation menu
+
+input your info for the system questions but for the description input "Password Change" and enter your new ticket will be printed 
+
+to view the new password created input "V" and enter and you will be able to view your new password. 
